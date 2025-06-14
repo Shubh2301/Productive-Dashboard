@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Productive Dashboard</title>
+    <title>Productivity Dashboard</title>
     <!--Remixicon CDN-->
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
     <link rel="stylesheet" href="style.css">
@@ -48,12 +48,19 @@
             <div class="todo-container">
                 <div class="addTask">
                     <form>
-                        <input type="text" placeholder="Enter Task">
+                        <input id="input-task" type="text" placeholder="Enter Task">
                         <textarea placeholder="Enter Details" name="" id="" cols="30" rows="10"></textarea>
+                        <div class="mark-imp">
+                            <input type="checkbox" name="" id="check">
+                            <label for="check">Mark as Important!</label>
+                        </div>
+
                         <button>Add Task</button>
                     </form>
                 </div>
-                <div class="allTask"></div>
+                <div class="allTask">
+                    
+                </div>
             </div>
         </section>
         <section class="fullElem daily-planner-fullpage">

@@ -3,6 +3,7 @@
     --sec:#BE5985;
     --tri1:#FFB8E0;
     --tri2:#EC7FA9;
+    --red:red;
 } 
 
 *{
@@ -80,7 +81,7 @@ section.allElems{
 .back{
     position:absolute;
     right: 5%;
-    background-color:var(--tri2);
+    background-color:var(--red);
     border: none;
     border-radius: 12px;
     padding: 10px 15px;
@@ -113,7 +114,7 @@ section.allElems{
     border-radius: 20px;
 }
 
-.todo-list-fullpage .todo-container  .allTask{
+.todo-list-fullpage .todo-container .allTask{
     width: 65%;
     height: 100%;
     background-color: var(--tri2);
@@ -125,25 +126,44 @@ section.allElems{
     align-items: flex-start;
     padding: 30px;
 }
-.todo-container .addTask form input{
+.todo-container .addTask form #input-task{
     padding: 15px 25px;
     width: 100%;
-    font-size: 25px;
-    background-color: var(--sec);
+    font-size: 26px;
+    background-color: var(--pri);
+    color: var(--sec);
+    border-radius: 5px;
+    border: none;
+    outline: none;
+    margin-bottom: 20px;
+    font-weight: 400;
+}
+.todo-container .addTask form textarea{
+    padding: 15px 25px;
+    width: 100%;
+    font-size: 26px;
+    background-color: var(--pri);
+    color: var(--sec);
     border-radius: 5px;
     border: none;
     outline: none;
     margin-bottom: 20px;
 }
-.todo-container .addTask form textarea{
-    padding: 15px 25px;
+
+.mark-imp{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
     width: 100%;
-    font-size: 25px;
-    background-color: var(--sec);
-    border-radius: 5px;
-    border: none;
-    outline: none;
+    padding: 10px 10px;
     margin-bottom: 20px;
+    gap: 30px;
+}
+.mark-imp input{
+    scale: 1.6;
+}
+.mark-imp label{
+    font-size: 20px;
 }
 .todo-container .addTask form button{
     padding: 15px 25px;
@@ -159,4 +179,58 @@ section.allElems{
 }
 .todo-container .addTask form button:active{
     scale: 0.94;
+}
+.todo-list-fullpage .todo-container .allTask{
+    width: 65%;
+    height: 100%;
+    background-color: var(--tri2);
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 30px;
+    overflow:auto;
+}
+.allTask::-webkit-scrollbar {
+  display: none; 
+}
+.task{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    background-color: var(--pri);
+    padding: 20px 30px;
+    margin-bottom: 10px;
+    border-radius: 12px;
+}
+.task h5{
+    color: var(--sec);
+    font-size: 25px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.task h5 span{
+    background-color: var(--red);
+    color: var(--pri);
+    font-size: 11px;
+    border-radius: 50px;
+    padding: 3px 8px;
+}
+.task h5 span.true{
+    opacity: 1;
+}
+.task h5 span.false{
+    opacity: 0;
+}
+.task button{
+    padding: 15px 30px;
+    border-radius: 5px;
+    color:var(--pri);
+    background-color: green;
+    font-size: 15px;
+    border: none;
+    font-weight: 600;
 }
