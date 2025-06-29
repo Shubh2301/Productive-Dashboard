@@ -81,46 +81,55 @@ function todoList() {
 todoList();
 
 //Daily Planner
-let dayPlanner=document.querySelector(".day-planner");
-let dayPlanData=JSON.parse(localStorage.getItem('dayPlanData'))||{}
+function dailyPlanner() {
+    let dayPlanner = document.querySelector(".day-planner");
+    let dayPlanData = JSON.parse(localStorage.getItem('dayPlanData')) || {}
 
 
-let hrs = Array.from({ length: 18 }, (elem, idx) => `${6 + idx}:00-${7 + idx}:00`);
+    let hrs = Array.from({ length: 18 }, (elem, idx) => `${6 + idx}:00-${7 + idx}:00`);
 
-let dayplannerInput=document.querySelectorAll('.day-planner input');
 
-console.log(hrs);
 
-var wholeDaySum = ''
-hrs.forEach(function(elem,idx){
-    var savedData=dayPlanData[idx] || ''
-})
+    console.log(hrs);
 
-hrs.forEach(function (elem,idx) {
-    console.log(elem);
-    wholeDaySum = wholeDaySum + ` 
+    var wholeDaySum = ''
+
+
+    hrs.forEach(function (elem, idx) {
+
+        var savedData = dayPlanData[idx] || ''
+        wholeDaySum = wholeDaySum + ` 
     <div class="day-planner-time">
         <p>${elem}</p>
         <input id=${idx} type="text" placeholder="..." value=${savedData}>
      </div>`;
-})
-
-
-
-
-
-dayPlanner.innerHTML=wholeDaySum;
-
-
-
-dayplannerInput.forEach(function(elem){
-    elem.addEventListener('change',function(){
-        dayPlanData[elem.id]=elem.value;
-        localStorage.setItem('dayPlanData',JSON.stringify(dayPlanData))
-        
-        
     })
-    
 
-})
+    dayPlanner.innerHTML = wholeDaySum;
+
+    let dayplannerInput = document.querySelectorAll('.day-planner input');
+
+    dayplannerInput.forEach(function (elem) {
+        elem.addEventListener('input', function () {
+            dayPlanData[elem.id] = elem.value;
+            localStorage.setItem('dayPlanData', JSON.stringify(dayPlanData))
+        })
+    })
+}
+
+dailyPlanner();
+
+//Motivation
+
+let motivationQuote= document.querySelector('.motivation-2 h1');
+let motivationAuthor= document.querySelector('.motivation-3 h2');
+
+async function fetchQuote(){
+    let response= await fetch('http://api.quotable.io/random');
+    let data= await response.json()
+
+    motivationQuote.innerHTML=data.content
+    motivationAuthor.innerHTML=data.author
+}
+fetchQuote();
 
