@@ -121,15 +121,95 @@ dailyPlanner();
 
 //Motivation
 
-let motivationQuote= document.querySelector('.motivation-2 h1');
-let motivationAuthor= document.querySelector('.motivation-3 h2');
+function MotivationalQuote() {
+    let motivationContent = document.querySelector('.motivation-2 h1');
+    let motivationAuthor = document.querySelector('.motivation-3 h2');
 
-async function fetchQuote(){
-    let response= await fetch('http://api.quotable.io/random');
-    let data= await response.json()
+    async function fetchQuote() {
+        let response = await fetch('http://api.quotable.io/random');
+        let data = await response.json()
 
-    motivationQuote.innerHTML=data.content
-    motivationAuthor.innerHTML=data.author
+        motivationContent.innerHTML = data.content
+        motivationAuthor.innerHTML = data.author
+    }
+    fetchQuote();
+
+    let refBtn = document.querySelector('.quote-btn');
+    refBtn.addEventListener('click', function () {
+        location.reload();
+
+    })
 }
-fetchQuote();
+
+MotivationalQuote();
+
+//Pomodoro
+let timer = document.querySelector('.pomo-timer h1');
+let startBtn = document.querySelector('.pomo-timer .Start-timer');
+let pauseBtn = document.querySelector('.pomo-timer .Pause-timer');
+let reseteBtn = document.querySelector('.pomo-timer .Reset-timer');
+let isWorkSession=true;
+
+let totalSeconds = 25 * 60;
+let timerInterval = null
+
+function updateTimer() {
+    let mintues = Math.floor(totalSeconds / 60)
+    let seconds = totalSeconds % 60;
+
+    timer.innerHTML = `${String(mintues).padStart('2', '0')}:${String(seconds).padStart('2', '0')}`
+
+}
+
+function startTimer() {
+    clearInterval(timerInterval)
+    if(isWorkSession){
+        totalSeconds=25*60
+         timerInterval=setInterval(function(){
+        if(totalSeconds>0){
+            totalSeconds--  
+            updateTimer()
+        }else{
+            isWorkSession=false
+            clearInterval(timerInterval)
+            timer.innerHTML='05:00'
+        }
+        
+    },10)
+        
+    }else{
+        totalSeconds=5*60
+         timerInterval=setInterval(function(){
+        if(totalSeconds>0){
+            totalSeconds--
+            updateTimer()
+            
+        }else{
+            isWorkSession=true
+            clearInterval(timerInterval)
+            timer.innerHTML='25:00'
+        }
+        
+    },10)    
+        
+    }
+    
+
+
+
+}
+function pauseTimer() {
+    clearInterval(timerInterval)
+}
+
+function resetTimer() {
+    totalSeconds = 25 * 60
+    clearInterval(timerInterval)
+    updateTimer()
+
+}
+
+startBtn.addEventListener('click', startTimer);
+pauseBtn.addEventListener('click', pauseTimer);
+reseteBtn.addEventListener('click', resetTimer);
 
