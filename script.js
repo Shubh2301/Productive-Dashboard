@@ -144,72 +144,100 @@ function MotivationalQuote() {
 MotivationalQuote();
 
 //Pomodoro
-let timer = document.querySelector('.pomo-timer h1');
-let startBtn = document.querySelector('.pomo-timer .Start-timer');
-let pauseBtn = document.querySelector('.pomo-timer .Pause-timer');
-let reseteBtn = document.querySelector('.pomo-timer .Reset-timer');
-let isWorkSession=true;
 
-let totalSeconds = 25 * 60;
-let timerInterval = null
+function Pomodoro() {
+    let timer = document.querySelector('.pomo-timer h1');
+    let startBtn = document.querySelector('.pomo-timer .Start-timer');
+    let pauseBtn = document.querySelector('.pomo-timer .Pause-timer');
+    let reseteBtn = document.querySelector('.pomo-timer .Reset-timer');
+    let isWorkSession = true;
 
-function updateTimer() {
-    let mintues = Math.floor(totalSeconds / 60)
-    let seconds = totalSeconds % 60;
+    let totalSeconds = 25 * 60;
+    let timerInterval = null
 
-    timer.innerHTML = `${String(mintues).padStart('2', '0')}:${String(seconds).padStart('2', '0')}`
+    function updateTimer() {
+        let mintues = Math.floor(totalSeconds / 60)
+        let seconds = totalSeconds % 60;
 
-}
+        timer.innerHTML = `${String(mintues).padStart('2', '0')}:${String(seconds).padStart('2', '0')}`
 
-function startTimer() {
-    clearInterval(timerInterval)
-    if(isWorkSession){
-        totalSeconds=25*60
-         timerInterval=setInterval(function(){
-        if(totalSeconds>0){
-            totalSeconds--  
-            updateTimer()
-        }else{
-            isWorkSession=false
-            clearInterval(timerInterval)
-            timer.innerHTML='05:00'
-        }
-        
-    },10)
-        
-    }else{
-        totalSeconds=5*60
-         timerInterval=setInterval(function(){
-        if(totalSeconds>0){
-            totalSeconds--
-            updateTimer()
-            
-        }else{
-            isWorkSession=true
-            clearInterval(timerInterval)
-            timer.innerHTML='25:00'
-        }
-        
-    },10)    
-        
     }
-    
+
+    function startTimer() {
+        clearInterval(timerInterval)
+        if (isWorkSession) {
+            totalSeconds = 25 * 60
+            timerInterval = setInterval(function () {
+                if (totalSeconds > 0) {
+                    totalSeconds--
+                    updateTimer()
+                } else {
+                    isWorkSession = false
+                    clearInterval(timerInterval)
+                    timer.innerHTML = '05:00'
+                }
+
+            }, 10)
+
+        } else {
+            totalSeconds = 5 * 60
+            timerInterval = setInterval(function () {
+                if (totalSeconds > 0) {
+                    totalSeconds--
+                    updateTimer()
+
+                } else {
+                    isWorkSession = true
+                    clearInterval(timerInterval)
+                    timer.innerHTML = '25:00'
+                }
+
+            }, 10)
+
+        }
 
 
+    }
+    function pauseTimer() {
+        clearInterval(timerInterval)
+    }
 
+    function resetTimer() {
+        totalSeconds = 25 * 60
+        clearInterval(timerInterval)
+        updateTimer()
+
+    }
+
+    startBtn.addEventListener('click', startTimer);
+    pauseBtn.addEventListener('click', pauseTimer);
+    reseteBtn.addEventListener('click', resetTimer);
 }
-function pauseTimer() {
-    clearInterval(timerInterval)
+
+Pomodoro();
+
+var APIkey='e7a998a634dc4e798ca154332250707'
+var header1Date=document.querySelector('.header1 h1');
+
+var City='Kolhapur'
+var data=null;
+async function waetherAPI(){
+    var response=await fetch(`http://api.weatherapi.com/v1/current.json?key=${APIkey}&q=${City}`);
+    data=await response.json()
 }
+waetherAPI();
 
-function resetTimer() {
-    totalSeconds = 25 * 60
-    clearInterval(timerInterval)
-    updateTimer()
 
+
+function timeDate(){
+    const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+    var date=new Date()
+    var dayOfWeek=days[date.getDate()];
+    var hours=date.getHours();
+    var min=date.getMinutes();
+    const amPm = hours >= 12 ? 'PM' : 'AM'
+    header1Date.innerHTML=`${dayOfWeek},${hours},${min},${amPm}`
 }
+timeDate()
 
-startBtn.addEventListener('click', startTimer);
-pauseBtn.addEventListener('click', pauseTimer);
-reseteBtn.addEventListener('click', resetTimer);
 
